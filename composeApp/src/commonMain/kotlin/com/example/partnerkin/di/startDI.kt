@@ -7,6 +7,6 @@ import org.koin.dsl.KoinAppDeclaration
 fun startDI(nativeModule: Module, appDeclaration: KoinAppDeclaration = {}) {
     startKoin {
         appDeclaration()
-        modules(nativeModule, sharedModule)
+        modules(nativeModule, networkModule, sharedModule)
     }
 }
