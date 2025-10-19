@@ -52,6 +52,8 @@ kotlin {
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.ktor.client.logging)
 
+            implementation(libs.kotlinx.datetime)
+
             implementation(libs.androidx.paging.common)
 //            implementation(libs.androidx.paging.compose)
 

@@ -12,6 +12,10 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
+import io.ktor.client.plugins.defaultRequest
+import io.ktor.http.URLProtocol
+import io.ktor.http.path
+
 val networkModule = module {
     single {
         HttpClient(getHttpClientEngine()) {
@@ -25,6 +29,14 @@ val networkModule = module {
             install(Logging) {
                 logger = Logger.DEFAULT
                 level = LogLevel.ALL
+            }
+            defaultRequest {
+                url {
+                    protocol = URLProtocol.HTTPS
+                    host = "partnerkin.com"
+                    path("api_ios_test/")
+                    parameters.append("api_key", "DMwdj29q@S29shslok2")
+                }
             }
         }
     }
