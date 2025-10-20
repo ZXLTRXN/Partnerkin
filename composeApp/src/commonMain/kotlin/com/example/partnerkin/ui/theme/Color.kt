@@ -10,8 +10,8 @@ val LightOnError = Color.White
 val LightErrorContainer = Color(0xFFFFDAD6)
 val LightOnErrorContainer = Color(0xFF410002)
 val LightOnPrimary = Color.White
-val LightOnSurface = Color(0xFF1C1B1F)
-val LightBackground = Color(0xFFFEFBFF)
+val LightOnSurface = Color(0xFF060A3C)
+val LightBackground = Color(0xFFFDFBFF)
 val LightOnBackground = Color(0xFF1C1B1F)
 
 // Dark Theme Colors
