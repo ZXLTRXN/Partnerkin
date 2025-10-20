@@ -1,8 +1,10 @@
-package com.example.partnerkin.data.models.mapper
+package com.example.partnerkin.data.models
 
-import com.example.partnerkin.data.models.ConferenceDataDTO
-import com.example.partnerkin.data.models.ConferencesResponseDTO
+import com.example.partnerkin.domain.models.CategoryModel
+import com.example.partnerkin.domain.models.ConferenceDetailsModel
 import com.example.partnerkin.domain.models.ConferenceModel
+import com.example.partnerkin.domain.models.ImageModel
+import com.example.partnerkin.domain.models.TypeModel
 import kotlinx.datetime.LocalDate
 
 fun ConferencesResponseDTO.toDomain(): List<ConferenceModel> {
@@ -33,8 +35,8 @@ fun ConferenceDataDTO.toDomain(): ConferenceModel {
     )
 }
 
-fun ConferenceDataDTO.ImageDTO.toDomain(): ConferenceModel.ImageModel {
-    return ConferenceModel.ImageModel(
+fun ImageDTO.toDomain(): ImageModel {
+    return ImageModel(
         id = this.id,
         url = this.url,
         preview = this.preview,
@@ -42,17 +44,43 @@ fun ConferenceDataDTO.ImageDTO.toDomain(): ConferenceModel.ImageModel {
     )
 }
 
-fun ConferenceDataDTO.CategoryDTO.toDomain(): ConferenceModel.CategoryModel {
-    return ConferenceModel.CategoryModel(
+fun CategoryDTO.toDomain(): CategoryModel {
+    return CategoryModel(
         id = this.id,
         name = this.name,
         url = this.url
     )
 }
 
-fun ConferenceDataDTO.TypeDTO.toDomain(): ConferenceModel.TypeModel {
-    return ConferenceModel.TypeModel(
+fun TypeDTO.toDomain(): TypeModel {
+    return TypeModel(
         id = this.id,
         name = this.name
+    )
+}
+
+fun ConferenceDetailsDTO.toDomain(): ConferenceDetailsModel {
+    return ConferenceDetailsModel(
+        id = this.id,
+        name = this.name,
+        format = this.format,
+        status = this.status,
+        statusTitle = this.statusTitle,
+        url = this.url,
+        image = this.image?.toDomain(),
+        rating = this.rating,
+        startDate = LocalDate.parse(this.startDate),
+        endDate = LocalDate.parse(this.endDate),
+        oneday = this.oneday,
+        customDate = this.customDate,
+        countryId = this.countryId,
+        country = this.country,
+        cityId = this.cityId,
+        city = this.city,
+        categories = this.categories.map { it.toDomain() },
+        typeId = this.typeId,
+        type = this.type.toDomain(),
+        registerUrl = this.registerUrl,
+        about = this.about
     )
 }

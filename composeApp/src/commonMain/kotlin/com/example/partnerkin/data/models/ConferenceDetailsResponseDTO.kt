@@ -1,0 +1,43 @@
+package com.example.partnerkin.data.models
+
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class ConferenceDetailsResponseDTO(
+    val error: String? = null,
+    val data: ConferenceDetailsDTO
+)
+
+@Serializable
+data class ConferenceDetailsDTO(
+    val id: Int,
+    val name: String,
+    val format: String,
+    val status: String,
+    @SerialName("status_title")
+    val statusTitle: String,
+    val url: String,
+    val image: ImageDTO? = null,
+    val rating: Double? = null,
+    @SerialName("start_date")
+    val startDate: String,
+    @SerialName("end_date")
+    val endDate: String,
+    val oneday: Int,
+    @SerialName("custom_date")
+    val customDate: String? = null,
+    @SerialName("country_id")
+    val countryId: Int,
+    val country: String,
+    @SerialName("city_id")
+    val cityId: Int,
+    val city: String,
+    val categories: List<CategoryDTO>,
+    @SerialName("type_id")
+    val typeId: Int,
+    val type: TypeDTO,
+    @SerialName("register_url")
+    val registerUrl: String,
+    val about: String
+)
