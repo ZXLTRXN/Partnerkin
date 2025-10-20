@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.kotlinxSerialization)
 }
 
 kotlin {
@@ -37,6 +38,7 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
+            implementation(compose.material)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
@@ -45,7 +47,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtimeCompose)
 
             implementation(libs.koin.core)
-//            implementation(libs.koin.compose)
+            implementation(libs.koin.compose)
 
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
@@ -54,8 +56,6 @@ kotlin {
 
             implementation(libs.kotlinx.datetime)
 
-            implementation(libs.androidx.paging.common)
-//            implementation(libs.androidx.paging.compose)
 
 //            implementation(libs.androidx.navigation.compose)
         }

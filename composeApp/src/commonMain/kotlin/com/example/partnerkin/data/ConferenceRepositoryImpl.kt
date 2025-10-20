@@ -15,6 +15,4 @@ class ConferenceRepositoryImpl(
             apiService.getConferences().toDomain()
         }
     }
-
-
 }
