@@ -1,4 +1,4 @@
-package com.example.partnerkin.presentation
+package com.example.partnerkin.presentation.conferences
 
 import com.example.partnerkin.domain.models.ConferenceModel
 

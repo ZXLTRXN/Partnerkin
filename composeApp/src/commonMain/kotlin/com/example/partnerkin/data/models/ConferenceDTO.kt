@@ -4,11 +4,11 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ConferenceDTO(
-    val conference: ConferenceDataDto
+data class ConferenceDataDTO(
+    val conference: ConferenceDto
 ) {
     @Serializable
-    data class ConferenceDataDto(
+    data class ConferenceDto(
         val id: Int,
         val name: String,
         val format: String,

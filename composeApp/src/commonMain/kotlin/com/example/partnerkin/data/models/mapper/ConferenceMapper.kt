@@ -1,6 +1,6 @@
 package com.example.partnerkin.data.models.mapper
 
-import com.example.partnerkin.data.models.ConferenceDTO
+import com.example.partnerkin.data.models.ConferenceDataDTO
 import com.example.partnerkin.data.models.ConferencesResponseDTO
 import com.example.partnerkin.domain.models.ConferenceModel
 import kotlinx.datetime.LocalDate
@@ -9,7 +9,7 @@ fun ConferencesResponseDTO.toDomain(): List<ConferenceModel> {
     return this.data.result.map { it.toDomain() }
 }
 
-fun ConferenceDTO.toDomain(): ConferenceModel {
+fun ConferenceDataDTO.toDomain(): ConferenceModel {
     return ConferenceModel(
         id = this.conference.id,
         name = this.conference.name,
@@ -33,7 +33,7 @@ fun ConferenceDTO.toDomain(): ConferenceModel {
     )
 }
 
-fun ConferenceDTO.ImageDTO.toDomain(): ConferenceModel.ImageModel {
+fun ConferenceDataDTO.ImageDTO.toDomain(): ConferenceModel.ImageModel {
     return ConferenceModel.ImageModel(
         id = this.id,
         url = this.url,
@@ -42,7 +42,7 @@ fun ConferenceDTO.ImageDTO.toDomain(): ConferenceModel.ImageModel {
     )
 }
 
-fun ConferenceDTO.CategoryDTO.toDomain(): ConferenceModel.CategoryModel {
+fun ConferenceDataDTO.CategoryDTO.toDomain(): ConferenceModel.CategoryModel {
     return ConferenceModel.CategoryModel(
         id = this.id,
         name = this.name,
@@ -50,7 +50,7 @@ fun ConferenceDTO.CategoryDTO.toDomain(): ConferenceModel.CategoryModel {
     )
 }
 
-fun ConferenceDTO.TypeDTO.toDomain(): ConferenceModel.TypeModel {
+fun ConferenceDataDTO.TypeDTO.toDomain(): ConferenceModel.TypeModel {
     return ConferenceModel.TypeModel(
         id = this.id,
         name = this.name

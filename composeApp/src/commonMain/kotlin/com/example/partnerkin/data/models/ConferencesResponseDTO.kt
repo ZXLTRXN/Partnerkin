@@ -2,7 +2,6 @@ package com.example.partnerkin.data.models
 
 import kotlinx.serialization.Serializable
 
-
 @Serializable
 data class ConferencesResponseDTO(
     val error: String? = null,
@@ -10,16 +9,6 @@ data class ConferencesResponseDTO(
 ) {
     @Serializable
     data class Data(
-//        val counts: Int,
-//        val pagination: Pagination,
-        val result: List<ConferenceDTO>
+        val result: List<ConferenceDataDTO>
     )
-
-//    @Serializable
-//    data class Pagination(
-//        @SerialName("page_size")
-//        val pageSize: Int,
-//        @SerialName("current_page")
-//        val currentPage: Int
-//    )
 }

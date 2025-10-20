@@ -1,14 +1,17 @@
+package com.example.partnerkin.presentation.conferences
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.partnerkin.presentation.ConferencesEvent
-import com.example.partnerkin.presentation.ConferencesState
-import com.example.partnerkin.domain.ConferenceRepository
+import com.example.partnerkin.domain.GetConferencesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.datetime.number
 
-class ConferencesViewModel(private val repository: ConferenceRepository): ViewModel() {
+class ConferencesViewModel(
+    private val getConferences: GetConferencesUseCase
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ConferencesState())
     val uiState = _uiState.asStateFlow()
@@ -31,11 +34,11 @@ class ConferencesViewModel(private val repository: ConferenceRepository): ViewMo
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, error = null) }
 
-            val result = repository.getConferences()
+            val result = getConferences.invoke()
 
             result.onSuccess { result ->
                 val conferencesByMonth = result.groupBy { conference ->
-                    Pair(conference.startDate.year, conference.startDate.monthNumber)
+                    Pair(conference.startDate.year, conference.startDate.month.number)
                 }
                 _uiState.update { state ->
                     state.copy(

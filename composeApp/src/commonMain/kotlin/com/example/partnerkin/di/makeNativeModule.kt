@@ -8,6 +8,5 @@ typealias NativeInjectionFactory<T> = Scope.() -> T
 
 fun makeNativeModule(
 ): Module {
-    return module {
-    }
+    return module {}
 }

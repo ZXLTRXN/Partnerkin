@@ -6,7 +6,6 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 
 class ApiService(private val client: HttpClient) {
-
     suspend fun getConferences(): ConferencesResponseDTO {
         return client.get("list").body()
     }

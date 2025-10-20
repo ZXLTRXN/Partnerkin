@@ -1,6 +1,5 @@
-package com.example.partnerkin.presentation
+package com.example.partnerkin.presentation.conferences
 
-import ConferencesViewModel
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.safeContentPadding
