@@ -1,6 +1,6 @@
 package com.example.partnerkin.data
 
-import com.example.partnerkin.data.models.toDomain
+import com.example.partnerkin.data.models.utils.toDomain
 import com.example.partnerkin.data.remote.ApiService
 import com.example.partnerkin.domain.models.ConferenceModel
 import com.example.partnerkin.domain.ConferenceRepository

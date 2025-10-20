@@ -6,7 +6,7 @@ data class ConferenceDetailsModel(
     val id: Int,
     val name: String,
     val format: String,
-    val status: String,
+    val status: DomainStatus,
     val statusTitle: String,
     val url: String,
     val image: ImageModel?,

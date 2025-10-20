@@ -1,5 +1,8 @@
 package com.example.partnerkin.data.models
 
+import com.example.partnerkin.data.models.utils.LocalDateSerializer
+import com.example.partnerkin.data.models.utils.StatusSerializer
+import kotlinx.datetime.LocalDate
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -14,16 +17,19 @@ data class ConferenceDetailsDTO(
     val id: Int,
     val name: String,
     val format: String,
-    val status: String,
+    @Serializable(with = StatusSerializer::class)
+    val status: Status,
     @SerialName("status_title")
     val statusTitle: String,
     val url: String,
     val image: ImageDTO? = null,
     val rating: Double? = null,
     @SerialName("start_date")
-    val startDate: String,
+    @Serializable(with = LocalDateSerializer::class)
+    val startDate: LocalDate,
     @SerialName("end_date")
-    val endDate: String,
+    @Serializable(with = LocalDateSerializer::class)
+    val endDate: LocalDate,
     val oneday: Int,
     @SerialName("custom_date")
     val customDate: String? = null,
