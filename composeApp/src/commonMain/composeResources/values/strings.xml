@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="conferences_list_screen_title">Конференции</string>
+    <string name="conferences_list_format_online">Онлайн</string>
+</resources>
