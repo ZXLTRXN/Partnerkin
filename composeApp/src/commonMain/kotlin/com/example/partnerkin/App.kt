@@ -1,13 +1,13 @@
 package com.example.partnerkin
 
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import com.example.partnerkin.presentation.conferences.ConferencesScreen
+import com.example.partnerkin.ui.theme.AppTheme
 
 
 @Composable
 fun App() {
-    MaterialTheme {
+    AppTheme {
         ConferencesScreen()
     }
 }
