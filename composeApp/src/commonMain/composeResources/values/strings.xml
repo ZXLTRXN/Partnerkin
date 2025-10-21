@@ -5,4 +5,7 @@
     <string name="conferences_list_status_canceled">Отменено</string>
 
     <string name="conferences_list_date_separator">-</string>
+
+
+    <string name="error_unknown">Неизвестная ошибка</string>
 </resources>

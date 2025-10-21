@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.partnerkin.presentation.conferences.ConferenceItemData
 import com.example.partnerkin.presentation.conferences.toItemData
+import com.example.partnerkin.ui.components.CategoryLabel
 import com.example.partnerkin.ui.components.RemoteImageWithPlaceholder
 import com.example.partnerkin.ui.theme.AppTheme
 import com.example.partnerkin.ui.theme.LightOnOpaquePrimary
@@ -47,7 +48,8 @@ import partnerkin.composeapp.generated.resources.conferences_list_status_cancele
 @Composable
 fun ConferenceItem(
     data: ConferenceItemData,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
 ) {
     val backgroundColor = if (!data.isCancelled)
         MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.errorContainer
@@ -55,7 +57,8 @@ fun ConferenceItem(
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = backgroundColor)
+        colors = CardDefaults.cardColors(containerColor = backgroundColor),
+        onClick = onClick,
     ) {
         Column(
             modifier = Modifier.padding(
@@ -129,29 +132,6 @@ fun ConferenceItem(
                 )
             }
         }
-    }
-}
-
-@Composable
-fun CategoryLabel(
-    text: String,
-    modifier: Modifier = Modifier
-) {
-    Box(
-        modifier = modifier
-            .background(
-                color = MaterialTheme.colorScheme.background,
-                shape = RoundedCornerShape(60.dp)
-            )
-            .padding(horizontal = 10.dp, vertical = 4.dp)
-    ) {
-        Text(
-            text,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.SemiBold,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
-        )
     }
 }
 
@@ -291,8 +271,8 @@ fun ConferenceItemPreview() {
     AppTheme {
         val item = Mocks.normalConference.toItemData()
         ConferenceItem(
-            data = item
+            data = item,
+            onClick = {}
         )
     }
-
 }

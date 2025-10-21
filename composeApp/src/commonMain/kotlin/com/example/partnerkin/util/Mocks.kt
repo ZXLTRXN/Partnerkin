@@ -1,6 +1,7 @@
 package com.example.partnerkin.util
 
 import com.example.partnerkin.domain.models.CategoryModel
+import com.example.partnerkin.domain.models.ConferenceDetailsModel
 import com.example.partnerkin.domain.models.ConferenceModel
 import com.example.partnerkin.domain.models.DomainStatus
 import com.example.partnerkin.domain.models.ImageModel
@@ -105,4 +106,43 @@ object Mocks {
         canceledConference,
         oneDayConference
     )
+
+    val sigmaAfrica2025 = ConferenceDetailsModel(
+        id = 3228,
+        name = "SiGMA Africa 2025",
+        format = "offline",
+        status = DomainStatus.PUBLISH,
+        statusTitle = "Опубликована",
+        url = "sigma-africa-2025",
+        image = ImageModel(
+            id = "f4bad773d6e5c03bc934706d88785bbf",
+            url = "https://partnerkin.com/uploads/webp/conferences/81e62a7f948c48175e7d5eaa.webp",
+            preview = "https://partnerkin.com/uploads/comp/webp/conferences/81e62a7f948c48175e7d5eaa.webp",
+            placeholderColor = null,
+        ),
+        rating = null,
+        startDate = LocalDate.parse("2025-03-10"),
+        endDate = LocalDate.parse("2025-03-12"),
+        oneday = 0,
+        customDate = null,
+        countryId = 52,
+        country = "ЮАР",
+        cityId = 1274,
+        city = "Кейптаун",
+        categories = listOf(
+            CategoryModel(id = 4, name = "Affiliate", url = "affiliate"),
+            CategoryModel(id = 5, name = "Marketing", url = "marketing"),
+            CategoryModel(id = 9, name = "iGaming", url = "igaming"),
+            CategoryModel(id = 10, name = "Betting", url = "betting")
+        ),
+        typeId = 2,
+        type = TypeModel(
+            id = 2,
+            name = "Конференция"
+        ),
+        registerUrl = "https://partnerkin.com/events/sigma-africa-2025",
+        about = "SiGMA Africa 2025 пройдет с 10 по 12 марта в Кейптауне на территории Sun Exhibits. Организаторы планируют собрать 2500 представителей гемблинг и беттинг ниш, включая аффилиатов, операторов и поставщиков услуг."
+    )
+
+
 }

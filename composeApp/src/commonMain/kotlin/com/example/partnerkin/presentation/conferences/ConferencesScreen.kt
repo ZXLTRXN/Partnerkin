@@ -29,6 +29,7 @@ import org.koin.compose.koinInject
 @Composable
 fun ConferencesScreen(
     viewModel: ConferencesViewModel = koinInject(),
+    onConferenceClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val state by viewModel.uiState.collectAsState()
@@ -38,7 +39,7 @@ fun ConferencesScreen(
         onRefresh = { viewModel.onEvent(ConferencesEvent.Refresh) }
     )
 
-    ConferencesScreenStateless(state, pullRefreshState, modifier)
+    ConferencesScreenStateless(state, pullRefreshState, onConferenceClick, modifier)
 
 }
 
@@ -47,6 +48,7 @@ fun ConferencesScreen(
 fun ConferencesScreenStateless(
     state: ConferencesState,
     pullRefreshState: PullRefreshState,
+    onConferenceClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -64,7 +66,7 @@ fun ConferencesScreenStateless(
                     val (monthGroup, conferences) = group
 
                     stickyHeader(
-                        key = monthGroup,
+                        key = "${monthGroup.year}-${monthGroup.month}",
                         "header"
 
                     ) {
@@ -83,7 +85,8 @@ fun ConferencesScreenStateless(
                     ) { conference ->
                         ConferenceItem(
                             data = conference,
-                            modifier = Modifier
+                            modifier = Modifier,
+                            onClick = { onConferenceClick(conference.id) }
                         )
                     }
                 }
@@ -111,7 +114,8 @@ fun ConferencesScreenStatelessPreview() {
     AppTheme {
         ConferencesScreenStateless(
             state = ConferencesState(conferencesByMonth = testData, isLoading = false),
-            pullRefreshState = rememberPullRefreshState(false, {})
+            pullRefreshState = rememberPullRefreshState(false, {}),
+            onConferenceClick = {}
         )
     }
 

@@ -28,6 +28,7 @@ actual fun getLocalizedMonthName(
             }
         }
     } catch (ex: Exception) {
+        // logs
         null
     }
 }

@@ -8,9 +8,12 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.datetime.number
+import org.jetbrains.compose.resources.StringResource
+import partnerkin.composeapp.generated.resources.Res
+import partnerkin.composeapp.generated.resources.error_unknown
 
 class ConferencesViewModel(
-    private val getConferences: GetConferencesUseCase
+    private val getConferences: GetConferencesUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ConferencesState())
@@ -62,10 +65,15 @@ class ConferencesViewModel(
                 _uiState.update { state ->
                     state.copy(
                         isLoading = false,
-                        error = err.message
+                        error = mapError(err),
+                        conferencesByMonth = emptyMap()
                     )
                 }
             }
         }
+    }
+
+    fun mapError(exception: Throwable): StringResource {
+        return Res.string.error_unknown
     }
 }
