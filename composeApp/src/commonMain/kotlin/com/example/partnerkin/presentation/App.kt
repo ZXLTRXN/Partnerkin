@@ -25,9 +25,12 @@ import com.example.partnerkin.presentation.details.ConferenceDetailsViewModel
 import com.example.partnerkin.presentation.navigation.Screen
 import com.example.partnerkin.ui.LocalSnackbarHostState
 import com.example.partnerkin.ui.theme.AppTheme
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
+import partnerkin.composeapp.generated.resources.Res
+import partnerkin.composeapp.generated.resources.icon_support
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -52,6 +55,14 @@ fun App() {
                                         contentDescription = "Back"
                                     )
                                 }
+                            }
+                        },
+                        actions = {
+                            IconButton(onClick = { }) {
+                                Icon(
+                                    painter = painterResource(Res.drawable.icon_support),
+                                    contentDescription = "Support"
+                                )
                             }
                         }
                     )
