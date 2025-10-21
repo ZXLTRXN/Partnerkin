@@ -10,7 +10,7 @@ import kotlinx.datetime.LocalDate
 object Mocks {
     val normalConference = ConferenceModel(
         id = 1,
-        name = "KMP Forward 2025",
+        name = "KMP Forward 2025 fewf ewfw qfewf wdbjqq wdqdjbqw qdjbqfq fwfwe",
         format = "offline",
         status = DomainStatus.PUBLISH,
         statusTitle = "Published",
@@ -44,7 +44,7 @@ object Mocks {
 
     val canceledConference = ConferenceModel(
         id = 2,
-        name = "Global Marketing Summit 2025",
+        name = "Global Marketing Summit 2025 fewf ewfw qfewf wdbjqq wdqdjbqw qdjbqfq fwfwe\"",
         format = "online",
         status = DomainStatus.CANCELED,
         statusTitle = "Published",
@@ -61,13 +61,13 @@ object Mocks {
         oneday = 0,
         customDate = null,
         countryId = 2,
-        country = "UK",
+        country = "UK fwefwe fewfw fw fewf ewf fwf wef we fewf wef wfwef",
         cityId = 2,
         city = "London",
         categories = listOf(
             CategoryModel(3, "Marketing", "marketing"),
             CategoryModel(4, "Business", "business"),
-            CategoryModel(5, "Business wefwf fwefw", "business"),
+            CategoryModel(5, "Business wefwf fwefw", "business qwdjvhqdj  dwqjdhqwj d dqwdjhwqjdhd qwjdhwqjdhqwjqdwqjd"),
             CategoryModel(6, "Business", "business"),
             CategoryModel(7, "Business", "business"),
         ),

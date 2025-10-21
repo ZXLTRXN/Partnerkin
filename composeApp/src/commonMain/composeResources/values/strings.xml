@@ -2,4 +2,7 @@
 <resources>
     <string name="conferences_list_screen_title">Конференции</string>
     <string name="conferences_list_format_online">Онлайн</string>
+    <string name="conferences_list_status_canceled">Отменено</string>
+
+    <string name="conferences_list_date_separator">-</string>
 </resources>

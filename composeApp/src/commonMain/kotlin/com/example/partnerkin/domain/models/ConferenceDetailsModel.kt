@@ -3,7 +3,7 @@ package com.example.partnerkin.domain.models
 import kotlinx.datetime.LocalDate
 
 data class ConferenceDetailsModel(
-    val id: Int,
+    val id: Long,
     val name: String,
     val format: String,
     val status: DomainStatus,

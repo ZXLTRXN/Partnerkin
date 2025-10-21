@@ -17,19 +17,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.partnerkin.domain.models.ConferenceModel
-import com.example.partnerkin.domain.models.DomainStatus
 import com.example.partnerkin.presentation.conferences.components.ConferenceItem
 import com.example.partnerkin.presentation.conferences.components.ConferenceMonthHeader
 import com.example.partnerkin.ui.theme.AppTheme
 import com.example.partnerkin.util.Mocks
-import com.example.partnerkin.util.getLocalizedMonthName
-import kotlinx.datetime.Month
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.koinInject
-import partnerkin.composeapp.generated.resources.Res
-import partnerkin.composeapp.generated.resources.compose_multiplatform
 
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -68,19 +61,16 @@ fun ConferencesScreenStateless(
             ) {
 
                 conferenceGroups.forEachIndexed { index, group ->
-                    val (datePair, conferences) = group
-                    val (year, monthNumber) = datePair
-                    val month = Month(monthNumber)
-                    val monthName = getLocalizedMonthName(month)
+                    val (monthGroup, conferences) = group
 
                     stickyHeader(
-                        key = datePair,
+                        key = monthGroup,
                         "header"
 
                     ) {
                         val headerModifier = Modifier.padding(16.dp)
                         ConferenceMonthHeader(
-                            "$monthName, $year",
+                            "${monthGroup.monthNameOrNull ?: ""}, ${monthGroup.year}",
                             modifier = if (index > 0) headerModifier.padding(top = 36.dp)
                             else headerModifier
                         )
@@ -89,16 +79,10 @@ fun ConferencesScreenStateless(
                     items(
                         items = conferences,
                         key = { conference -> conference.id },
-                        contentType = { "conference" }
+                        contentType = { conference -> conference.status }
                     ) { conference ->
                         ConferenceItem(
-                            title = conference.name,
-                            image = painterResource(Res.drawable.compose_multiplatform),
-                            dateStart = conference.startDate,
-                            dateEnd = conference.endDate,
-                            tags = conference.categories.map { it.name },
-                            location = "${conference.city}, ${conference.country}",
-                            isCancelled = conference.status == DomainStatus.CANCELED,
+                            data = conference,
                             modifier = Modifier
                         )
                     }
@@ -120,9 +104,9 @@ fun ConferencesScreenStateless(
 )
 @Composable
 fun ConferencesScreenStatelessPreview() {
-    val testData = mapOf<Pair<Int, Int>, List<ConferenceModel>>(
-        Pair(2023, 1) to Mocks.conferencesExample,
-        Pair(2024, 2) to Mocks.conferencesExample
+    val testData = mapOf(
+        MonthGroup(2023, 1) to Mocks.conferencesExample.map { it.toItemData() },
+        MonthGroup(2024, 2) to Mocks.conferencesExample.map { it.toItemData() },
     )
     AppTheme {
         ConferencesScreenStateless(

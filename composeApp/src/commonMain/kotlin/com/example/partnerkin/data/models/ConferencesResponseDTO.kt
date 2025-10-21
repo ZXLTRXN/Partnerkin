@@ -23,7 +23,7 @@ data class ConferenceDataDTO(
 ) {
     @Serializable
     data class ConferenceDto(
-        val id: Int,
+        val id: Long,
         val name: String,
         val format: String,
         @Serializable(with = StatusSerializer::class)

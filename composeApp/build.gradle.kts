@@ -56,6 +56,10 @@ kotlin {
 
             implementation(libs.kotlinx.datetime)
 
+            implementation(libs.coil.compose)
+            implementation(libs.coil.compose.core)
+            implementation(libs.coil.network.ktor3)
+
 
 //            implementation(libs.androidx.navigation.compose)
         }

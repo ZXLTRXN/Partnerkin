@@ -1,10 +1,9 @@
 package com.example.partnerkin.domain.models
 
-
 import kotlinx.datetime.LocalDate
 
 data class ConferenceModel(
-    val id: Int,
+    val id: Long,
     val name: String,
     val format: String,
     val status: DomainStatus,
@@ -23,4 +22,7 @@ data class ConferenceModel(
     val categories: List<CategoryModel>,
     val typeId: Int,
     val type: TypeModel
-)
+) {
+    val isCanceled: Boolean = status == DomainStatus.CANCELED
+
+}

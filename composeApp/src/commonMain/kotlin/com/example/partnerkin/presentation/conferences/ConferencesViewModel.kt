@@ -23,12 +23,12 @@ class ConferencesViewModel(
     fun onEvent(event: ConferencesEvent) {
         when (event) {
             is ConferencesEvent.LoadConferences -> loadConferences()
-            is ConferencesEvent.Refresh -> loadConferences(isRefresh = true)
-            is ConferencesEvent.TapOnConference -> loadConferences(isRefresh = true)
+            is ConferencesEvent.Refresh -> loadConferences()
+            is ConferencesEvent.TapOnConference -> loadConferences()
         }
     }
 
-    private fun loadConferences(isRefresh: Boolean = false) {
+    private fun loadConferences() {
         if (_uiState.value.isLoading) return
 
         viewModelScope.launch {
@@ -37,16 +37,27 @@ class ConferencesViewModel(
             val result = getConferences.invoke()
 
             result.onSuccess { result ->
-                val conferencesByMonth = result.groupBy { conference ->
-                    Pair(conference.startDate.year, conference.startDate.month.number)
-                }
+                val conferencesByMonth = result
+                    .map { conference ->
+                        conference.toItemData()
+                    }
+                    .groupBy { conference ->
+                        MonthGroup(conference.startDate.year, conference.startDate.month.number)
+                    }
+
+                val conferencesSortedByMonth: LinkedHashMap<MonthGroup, List<ConferenceItemData>> =
+                    conferencesByMonth.entries
+                        .sortedWith(compareBy({ it.key.year }, { it.key.month }))
+                        .associateTo(LinkedHashMap()) { it.key to it.value }
+
                 _uiState.update { state ->
                     state.copy(
                         isLoading = false,
-                        conferencesByMonth = conferencesByMonth,
+                        conferencesByMonth = conferencesSortedByMonth,
                         error = null
                     )
                 }
+
             }.onFailure { err ->
                 _uiState.update { state ->
                     state.copy(
