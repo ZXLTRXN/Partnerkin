@@ -9,21 +9,20 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Surface
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ErrorOutline
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -34,7 +33,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.partnerkin.domain.models.ConferenceModel
 import com.example.partnerkin.domain.models.DomainStatus
 import com.example.partnerkin.ui.theme.AppTheme
 import com.example.partnerkin.util.Mocks
@@ -44,43 +42,10 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import partnerkin.composeapp.generated.resources.Res
 import partnerkin.composeapp.generated.resources.compose_multiplatform
 
+// TODO TEXT + limits
+
 @Composable
 fun ConferenceItem(
-    conference: ConferenceModel,
-    modifier: Modifier = Modifier
-) {
-    val backgroundColor = if (conference.status == DomainStatus.PUBLISH)
-        MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.errorContainer
-    Card(
-        modifier = modifier
-            .background(backgroundColor, shape = MaterialTheme.shapes.medium)
-            .fillMaxWidth()
-    ) {
-        Column(
-            modifier = Modifier
-                .padding(horizontal = 16.dp, vertical = 24.dp)
-        ) {
-            Text(
-                text = conference.name,
-                style = MaterialTheme.typography.titleLarge
-            )
-            Card {
-                Image(
-                    painter = painterResource(Res.drawable.compose_multiplatform),
-                    contentDescription = null
-                )
-
-            }
-            Text(
-                text = "${conference.city}, ${conference.country}",
-                style = MaterialTheme.typography.bodyMedium
-            )
-        }
-    }
-}
-
-@Composable
-fun ConferenceCard(
     title: String,
     image: Painter,
     dateStart: LocalDate,
@@ -98,27 +63,35 @@ fun ConferenceCard(
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = backgroundColor)
     ) {
-        Column(modifier = Modifier.padding(vertical = 24.dp, horizontal = 16.dp)) {
-
+        Column(
+            modifier = Modifier.padding(
+                bottom = 24.dp,
+                start = 16.dp,
+                end = 16.dp
+            )
+        ) {
             if (isCancelled) {
-                CanceledLabel()
+                CanceledLabel(
+                    Modifier.padding(top = 10.dp)
+                )
             }
+            Spacer(Modifier.height(24.dp))
 
             Text(
                 title,
-                fontWeight = FontWeight.SemiBold, // TODO
+                fontWeight = FontWeight.SemiBold,
                 fontSize = 24.sp,
             )
 
             Spacer(Modifier.height(20.dp))
 
-            val color = if (isCancelled)
+            val imageContainerColor = if (isCancelled)
                 MaterialTheme.colorScheme.error.copy(0.06f)
             else MaterialTheme.colorScheme.primary.copy(0.04f)
 
             ImageDateContainer(
                 image = image,
-                backgroundColor = color,
+                backgroundColor = imageContainerColor,
                 dateStart = dateStart,
                 dateEnd = dateEnd
             )
@@ -126,8 +99,8 @@ fun ConferenceCard(
             Spacer(Modifier.height(24.dp))
 
             FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(6.dp),
-                verticalArrangement = Arrangement.spacedBy(4.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(6.dp),
                 maxLines = 2
             ) {
                 tags.forEach { tag ->
@@ -135,7 +108,7 @@ fun ConferenceCard(
                 }
             }
 
-            Spacer(Modifier.height(8.dp))
+            Spacer(Modifier.height(16.dp))
 
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
@@ -143,7 +116,7 @@ fun ConferenceCard(
                     contentDescription = null,
                     modifier = Modifier.size(16.dp)
                 )
-                Spacer(Modifier.width(4.dp))
+                Spacer(Modifier.width(8.dp))
                 Text(
                     location,
                     fontSize = 14.sp
@@ -161,7 +134,7 @@ fun CategoryLabel(
     Box(
         modifier = modifier
             .background(
-                color = MaterialTheme.colorScheme.background,
+                color = MaterialTheme.colorScheme.background, // fixme check
                 shape = RoundedCornerShape(60.dp)
             )
             .padding(horizontal = 10.dp, vertical = 4.dp)
@@ -169,7 +142,7 @@ fun CategoryLabel(
         Text(
             text,
             fontSize = 12.sp,
-            fontWeight = FontWeight.Medium
+            fontWeight = FontWeight.SemiBold
         )
     }
 }
@@ -190,29 +163,24 @@ fun ImageDateContainer(
     ) {
         Row(
             modifier = modifier
-                .fillMaxWidth()
-                .height(80.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
                 painter = image,
                 contentDescription = null,
                 modifier = Modifier
-                    .height(104.dp)
-                    .weight(0.4f),
+                    .size(width = 156.dp, height = 104.dp),
                 contentScale = ContentScale.Crop
             )
-
-            Spacer(Modifier.width(12.dp))
 
             TwoLinesDate(
                 leftDate = dateStart,
                 rightDate = if (dateStart != dateEnd) dateEnd else null,
                 modifier = Modifier
-                    .weight(0.6f)
-                    .fillMaxHeight()
+                    .padding(horizontal = 24.dp, vertical = 11.dp)
             )
-
         }
     }
 
@@ -224,52 +192,54 @@ fun TwoLinesDate(
     rightDate: LocalDate?,
     modifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+    Row(
+        verticalAlignment = Alignment.Top,
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        modifier = modifier.fillMaxWidth()
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
             Text(
                 "${leftDate.day}",
                 fontSize = 40.sp,
                 fontWeight = FontWeight.Light
             )
-
-            rightDate?.let {
-                Text(
-                    "-",
-                    fontSize = 40.sp,
-                    fontWeight = FontWeight.Light
-                )
-
+            Text(leftDate.month.name.substring(0..2), fontSize = 12.sp, color = Color.Gray)
+        }
+        rightDate?.let {
+            Text(
+                "-",
+                fontSize = 40.sp,
+                fontWeight = FontWeight.Light
+            )
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
                 Text(
                     "${rightDate.day}",
                     fontSize = 40.sp,
                     fontWeight = FontWeight.Light
                 )
-            }
-        }
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(leftDate.month.name.substring(0..2), fontSize = 12.sp, color = Color.Gray)
-            rightDate?.let {
-                Text(leftDate.month.name.substring(0..2), fontSize = 12.sp, color = Color.Gray)
+                Text(
+                    leftDate.month.name.substring(0..2),
+                    fontSize = 12.sp, color = Color.Gray
+                )
             }
         }
     }
+
 }
 
 @Composable
-fun CanceledLabel() {
+fun CanceledLabel(
+    modifier: Modifier = Modifier
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
+        modifier = modifier
             .background(
                 color = MaterialTheme.colorScheme.background,
                 shape = RoundedCornerShape(60.dp)
@@ -305,8 +275,8 @@ fun CanceledLabel() {
 @Composable
 fun ConferenceItemPreview() {
     AppTheme {
-        val item = Mocks.conferences[0]
-        ConferenceCard(
+        val item = Mocks.canceledConference
+        ConferenceItem(
             title = item.name,
             image = painterResource(Res.drawable.compose_multiplatform),
             dateStart = item.startDate,
