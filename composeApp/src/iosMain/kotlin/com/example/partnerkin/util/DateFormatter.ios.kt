@@ -1,8 +1,6 @@
 package com.example.partnerkin.util
 
 import kotlinx.datetime.Month
-import platform.Foundation.NSCalendar
-import platform.Foundation.NSDateComponents
 import platform.Foundation.NSDateFormatter
 import platform.Foundation.NSLocale
 
