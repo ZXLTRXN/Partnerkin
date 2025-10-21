@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ErrorOutline
-import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -39,11 +38,14 @@ import com.example.partnerkin.ui.components.RemoteImageWithPlaceholder
 import com.example.partnerkin.ui.theme.AppTheme
 import com.example.partnerkin.ui.theme.LightOnOpaquePrimary
 import com.example.partnerkin.util.Mocks
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import partnerkin.composeapp.generated.resources.Res
 import partnerkin.composeapp.generated.resources.conferences_list_date_separator
 import partnerkin.composeapp.generated.resources.conferences_list_status_canceled
+import partnerkin.composeapp.generated.resources.icon_lightning
+import partnerkin.composeapp.generated.resources.icon_pin
 
 @Composable
 fun ConferenceItem(
@@ -88,8 +90,6 @@ fun ConferenceItem(
                 MaterialTheme.colorScheme.error.copy(0.06f)
             else MaterialTheme.colorScheme.primary.copy(0.04f)
 
-
-
             ImageDateContainer(
                 imageUrl = data.imageUrl,
                 backgroundColor = imageContainerColor,
@@ -111,7 +111,7 @@ fun ConferenceItem(
                 maxLines = 2
             ) {
                 data.categories.forEach { category ->
-                    CategoryLabel(category.name)
+                    CategoryLabel(text = category.name, backgroundColor = MaterialTheme.colorScheme.background)
                 }
             }
 
@@ -119,13 +119,13 @@ fun ConferenceItem(
 
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
-                    imageVector = Icons.Default.LocationOn,
+                    painterResource(Res.drawable.icon_pin),
                     contentDescription = null,
                     modifier = Modifier.size(16.dp)
                 )
                 Spacer(Modifier.width(8.dp))
                 Text(
-                    data.location,
+                    text = data.location,
                     fontSize = 14.sp,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
@@ -143,7 +143,6 @@ fun ImageDateContainer(
     endDayMonth: Pair<String, String>,
     modifier: Modifier = Modifier
 ) {
-
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(12.dp),
@@ -191,7 +190,7 @@ fun TwoLinesDate(
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                startDay.padStart(2, '0'),
+                text = startDay.padStart(2, '0'),
                 fontSize = 40.sp,
                 fontWeight = FontWeight.Light
             )
@@ -204,7 +203,7 @@ fun TwoLinesDate(
         if (startDayMonth != endDayMonth) {
             val (endDay, endMonth) = endDayMonth
             Text(
-                stringResource(Res.string.conferences_list_date_separator),
+                text = stringResource(Res.string.conferences_list_date_separator),
                 fontSize = 40.sp,
                 fontWeight = FontWeight.Light,
             )
@@ -213,7 +212,7 @@ fun TwoLinesDate(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    endDay.padStart(2, '0'),
+                    text = endDay.padStart(2, '0'),
                     fontSize = 40.sp,
                     fontWeight = FontWeight.Light,
                 )
@@ -246,14 +245,14 @@ fun CanceledLabel(
             .padding(horizontal = 10.dp, vertical = 4.dp)
     ) {
         Icon(
-            imageVector = Icons.Default.ErrorOutline,
+            painterResource(Res.drawable.icon_lightning),
             contentDescription = null,
             tint = MaterialTheme.colorScheme.error,
             modifier = Modifier.size(14.dp)
         )
         Spacer(Modifier.width(4.dp))
         Text(
-            stringResource(Res.string.conferences_list_status_canceled),
+            text = stringResource(Res.string.conferences_list_status_canceled),
             color = MaterialTheme.colorScheme.error,
             fontSize = 12.sp,
             fontWeight = FontWeight.Medium

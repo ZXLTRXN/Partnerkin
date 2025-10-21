@@ -9,5 +9,7 @@ data class MonthGroup(
     val year: Int,
     val month: Int // starting 1
 ) {
-    val monthNameOrNull: String? = getLocalizedMonthName(Month(month), MonthFormat.FULL_RUSSIAN)
+    val monthNameOrNull: String? = getLocalizedMonthName(Month(month),
+        MonthFormat.FULL_RUSSIAN_SIMPLE
+    )
 }

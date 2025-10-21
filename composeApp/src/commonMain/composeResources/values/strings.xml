@@ -6,6 +6,11 @@
 
     <string name="conferences_list_date_separator">-</string>
 
+    <string name="conference_button_register">Регистрация</string>
+    <string name="conference_connected_events_title">Связанные события</string>
+    <string name="conference_about_event">О событии</string>
+
+    <string name="conference_registration_complete">Зарегистрировались!</string>
 
     <string name="error_unknown">Неизвестная ошибка</string>
 </resources>

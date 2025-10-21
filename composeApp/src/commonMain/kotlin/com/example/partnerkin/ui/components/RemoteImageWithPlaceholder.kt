@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import coil3.compose.AsyncImage
 import coil3.compose.LocalPlatformContext
 import coil3.compose.SubcomposeAsyncImage
 import coil3.request.CachePolicy
@@ -21,48 +22,46 @@ fun RemoteImageWithPlaceholder(
     imageUrl: String?,
     modifier: Modifier = Modifier,
     contentDescription: String? = null,
-    contentScale: ContentScale = ContentScale.Crop,
+    contentScale: ContentScale = ContentScale.Fit,
 ) {
-    Box(
-        modifier = modifier
-    ) {
-        SubcomposeAsyncImage(
-            model = ImageRequest.Builder(LocalPlatformContext.current)
-                .data(imageUrl)
-                .memoryCachePolicy(CachePolicy.ENABLED)
-                .diskCachePolicy(CachePolicy.DISABLED) //  fixme for tests
-                .build(),
-            contentDescription = contentDescription,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = contentScale,
-            loading = {
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        .fillMaxSize()
-                ) {
-                    CircularProgressIndicator()
-                }
-            },
-            error = {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                ) {
-                    Image(
-                        painter = painterResource(Res.drawable.compose_multiplatform),
-                        contentDescription = contentDescription,
-                        modifier = Modifier.fillMaxSize()
-                    )
-                }
-            },
-            success = { imageState ->
+    SubcomposeAsyncImage( // slow fixme
+        model = ImageRequest.Builder(LocalPlatformContext.current)
+            .data(imageUrl)
+            .memoryCachePolicy(CachePolicy.ENABLED)
+            .diskCachePolicy(CachePolicy.DISABLED) //  fixme for tests
+            .build(),
+        contentDescription = contentDescription,
+        modifier = modifier,
+        contentScale = contentScale,
+        loading = {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .fillMaxSize()
+            ) {
+                CircularProgressIndicator()
+            }
+        },
+        error = {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+            ) {
                 Image(
-                    painter = imageState.painter,
+                    painter = painterResource(Res.drawable.compose_multiplatform),
                     contentDescription = contentDescription,
-                    modifier = Modifier.fillMaxSize()
+                    modifier = modifier,
+                    contentScale = contentScale
                 )
             }
-        )
-    }
+        },
+        success = { imageState ->
+            Image(
+                painter = imageState.painter,
+                contentDescription = contentDescription,
+                modifier = modifier,
+                contentScale = contentScale
+            )
+        }
+    )
 }

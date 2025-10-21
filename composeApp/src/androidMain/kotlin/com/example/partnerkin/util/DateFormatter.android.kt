@@ -12,14 +12,21 @@ actual fun getLocalizedMonthName(
         when (format) {
             MonthFormat.FULL_RUSSIAN -> {
                 val locale = Locale("ru", "RU")
-                val monthName = DateFormatSymbols(locale).months[month.ordinal]
-                monthName.replaceFirstChar { it.titlecase(locale) }
+                DateFormatSymbols(locale).months[month.ordinal]
             }
 
             MonthFormat.SHORT_ENG -> {
                 val locale = Locale.ENGLISH
                 val monthName = DateFormatSymbols(locale).shortMonths[month.ordinal]
                 monthName.uppercase(locale)
+            }
+
+            MonthFormat.FULL_RUSSIAN_SIMPLE -> {
+                val monthsRu = listOf(
+                    "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
+                    "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
+                )
+                return monthsRu[month.ordinal]
             }
         }
     } catch (ex: Exception) {

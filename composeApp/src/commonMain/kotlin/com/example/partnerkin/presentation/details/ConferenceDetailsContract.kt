@@ -11,6 +11,10 @@ data class ConferenceDetailsState(
 )
 
 sealed interface ConferenceDetailsEvent {
-    object LoadConference : ConferenceDetailsEvent
-    object TapOnRegister : ConferenceDetailsEvent
+    data object LoadConference : ConferenceDetailsEvent
+    data object TapOnRegister : ConferenceDetailsEvent
+}
+
+sealed interface ConferenceDetailsEffect {
+    data class ShowSnackbar(val message: StringResource) : ConferenceDetailsEffect
 }

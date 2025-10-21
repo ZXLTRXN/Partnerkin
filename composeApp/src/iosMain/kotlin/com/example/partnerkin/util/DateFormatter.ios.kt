@@ -16,15 +16,21 @@ actual fun getLocalizedMonthName(
         when (format) {
             MonthFormat.FULL_RUSSIAN -> {
                 formatter.setLocale(NSLocale(localeIdentifier = "ru_RU"))
-                formatter.setDateFormat("MMMM")
 
-                val result = formatter.monthSymbols[month.ordinal] as String
-                result.replaceFirstChar { it.titlecase() }
+                formatter.monthSymbols[month.ordinal] as String
             }
             MonthFormat.SHORT_ENG -> {
                 formatter.setLocale(NSLocale(localeIdentifier = "en"))
                 val result = formatter.shortMonthSymbols[month.ordinal] as String
                 result.uppercase()
+            }
+
+            MonthFormat.FULL_RUSSIAN_SIMPLE -> {
+                val monthsRu = listOf(
+                    "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
+                    "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
+                )
+                return monthsRu[month.ordinal]
             }
         }
     } catch (ex: Exception) {

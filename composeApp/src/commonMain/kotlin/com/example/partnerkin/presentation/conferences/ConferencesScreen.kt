@@ -17,6 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.partnerkin.presentation.conferences.components.ConferenceItem
 import com.example.partnerkin.presentation.conferences.components.ConferenceMonthHeader
 import com.example.partnerkin.ui.theme.AppTheme
@@ -32,7 +33,7 @@ fun ConferencesScreen(
     onConferenceClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val state by viewModel.uiState.collectAsState()
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     val pullRefreshState = rememberPullRefreshState(
         refreshing = state.isLoading,

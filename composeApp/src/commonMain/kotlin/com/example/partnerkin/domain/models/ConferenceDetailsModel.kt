@@ -1,7 +1,12 @@
 package com.example.partnerkin.domain.models
 
+import androidx.compose.runtime.Immutable
+import com.example.partnerkin.util.MonthFormat
+import com.example.partnerkin.util.getLocalizedMonthName
 import kotlinx.datetime.LocalDate
 
+
+@Immutable
 data class ConferenceDetailsModel(
     val id: Long,
     val name: String,
@@ -24,4 +29,22 @@ data class ConferenceDetailsModel(
     val type: TypeModel,
     val registerUrl: String,
     val about: String
-)
+) {
+
+    val readableStartDate: String = getReadableDate(startDate)
+    val readableEndDate: String = getReadableDate(endDate)
+
+    val readablePeriod: String = if (startDate == endDate) {
+        readableStartDate
+    } else {
+        "$readableStartDate - $readableEndDate"
+    }
+
+    private fun getReadableDate(date: LocalDate): String {
+        val month = getLocalizedMonthName(date.month,
+            MonthFormat.FULL_RUSSIAN
+        ) ?: date.month.name
+        return "${date.day} $month ${date.year}"
+    }
+
+}
